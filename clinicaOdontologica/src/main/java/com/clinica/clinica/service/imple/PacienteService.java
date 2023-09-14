@@ -36,10 +36,15 @@ public class PacienteService implements IPacienteService {
     }
 
     @Override
-    public PacienteSalidaDto registrarPaciente(PacienteEntradaDto paciente) {
+    public PacienteSalidaDto registrarPaciente(PacienteEntradaDto paciente){
         Paciente pacGuardado = pacienteRepository.save(dtoEntradaAEntidad(paciente));
         PacienteSalidaDto pacienteSalidaDto = entidadADtoSalida(pacGuardado);
-        LOGGER.info("Paciente guardado: {}", pacienteSalidaDto);
+        if (paciente.getNombre()==null||paciente.getApellido()==null||paciente.getFechaIngreso()==null||paciente.getDomicilio()==null){
+            LOGGER.info("Paciente no se puede guardar, debido a que tiene campos en null");
+        }else{
+            LOGGER.info("Paciente guardado: {}", pacienteSalidaDto);
+
+        }
         return pacienteSalidaDto;
     }
 

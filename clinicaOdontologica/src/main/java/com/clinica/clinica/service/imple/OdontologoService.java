@@ -39,7 +39,11 @@ public class OdontologoService implements IOdontologoService {
     public OdontologoSalidaDto registrarOdontologo(OdontologoEntradaDto odontologo) {
         Odontologo odGuardado = odontologoRepository.save(dtoEntradaAEntidad(odontologo));
         OdontologoSalidaDto odontologoSalidaDto = modelMapper.map(odGuardado, OdontologoSalidaDto.class);
-        LOGGER.info("Odontologo guardado: {}", odontologoSalidaDto);
+        if (odontologo.getMatricula().length()<10){
+            LOGGER.info("Odontologo No se pudo guardar porque matricula es menor a 10");
+        }else{
+            LOGGER.info("Odontologo guardado: {}", odontologoSalidaDto);
+        }
         return odontologoSalidaDto;
     }
 
